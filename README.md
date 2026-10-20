@@ -6,7 +6,7 @@ A deliberately vulnerable web application for practicing application security te
 
 ⚠️ **WARNING: This application is intentionally vulnerable and should only be used for educational purposes in isolated environments.**
 
-![image](https://github.com/user-attachments/assets/7fda0106-b083-48d6-8629-f7ee3c8eb73d)
+![ISB Landing Page](screenshots/Screenshot%202026-10-20%20135533.png)
 
 ## 🎨 About This Fork
 
@@ -42,7 +42,7 @@ This project is a simple banking application with multiple security vulnerabilit
 - 📱 Bill Payments System
 - 🤖 AI Customer Support Agent (Real LLM with DeepSeek API / Mock Mode)
 
-![image](https://github.com/user-attachments/assets/f8d14d62-d71e-41f3-85c7-133553a75989)
+![ISB Open Account](screenshots/Screenshot%202026-10-20%20135633.png)
 
 ### Implemented Vulnerabilities
 
