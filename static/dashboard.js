@@ -30,9 +30,9 @@ function showToast(type, title, message, duration = 5000) {
     toast.className = `toast ${type}`;
 
     const icons = {
-        success: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>',
-        error: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>',
-        warning: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>'
+        success: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>',
+        error: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>',
+        warning: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>'
     };
 
     toast.innerHTML = `
@@ -42,7 +42,7 @@ function showToast(type, title, message, duration = 5000) {
             <div class="toast-message">${message}</div>
         </div>
         <button class="toast-close" onclick="dismissToast(this.parentElement)" aria-label="Close notification">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
     `;
 
@@ -89,7 +89,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('current-date').textContent = today.toLocaleDateString('en-US', options);
 });
 
-// Vulnerability: Token stored in localStorage
 document.addEventListener('DOMContentLoaded', function() {
     const token = localStorage.getItem('jwt_token');
     if (!token) {
@@ -108,7 +107,6 @@ document.addEventListener('DOMContentLoaded', function() {
         profileUrlBtn.addEventListener('click', handleProfileUrlImport);
     }
 
-    // Add bio form event listener (Stored XSS vulnerability)
     const bioForm = document.getElementById('bioForm');
     if (bioForm) {
         bioForm.addEventListener('submit', handleBioUpdate);
@@ -246,9 +244,8 @@ async function handleLoanRequest(event) {
                 // Create new loans section
                 loansSection = document.createElement('div');
                 loansSection.className = 'loans-section';
-                loansSection.style.marginTop = '2rem';
                 loansSection.innerHTML = `
-                    <h3 style="margin-bottom: 1rem;">Your Loan Applications</h3>
+                    <h3>Your loan applications</h3>
                     <table>
                         <thead>
                             <tr>
@@ -298,7 +295,6 @@ async function handleProfileUpload(event) {
 
         const data = await response.json();
         if (data.status === 'success') {
-            // Vulnerability: No sanitization of file_path
             const img = document.getElementById('profile-picture');
             img.src = '/' + data.file_path + '?v=' + new Date().getTime(); // Prevent caching
             document.getElementById('upload-message').innerText = 'Upload successful!';
@@ -314,7 +310,6 @@ async function handleProfileUpload(event) {
     }
 }
 
-// Import profile picture from URL (Intentionally Vulnerable to SSRF)
 async function handleProfileUrlImport() {
     const imageUrl = prompt('Enter image URL to import as your profile picture:');
     if (!imageUrl) return;
@@ -345,7 +340,6 @@ async function handleProfileUrlImport() {
     }
 }
 
-// Update user bio (Stored XSS vulnerability - no sanitization on display)
 async function handleBioUpdate(event) {
     event.preventDefault();
 
@@ -364,10 +358,9 @@ async function handleBioUpdate(event) {
 
         const data = await response.json();
         if (data.status === 'success') {
-            // Update the bio display immediately with user input (XSS vulnerability)
             const bioDisplay = document.getElementById('user-bio-display');
             if (bioDisplay) {
-                bioDisplay.innerHTML = bio; // Direct innerHTML assignment - XSS!
+                bioDisplay.innerHTML = bio;
             }
 
             document.getElementById('bio-message').innerText = 'Bio updated successfully!';
@@ -384,7 +377,6 @@ async function handleBioUpdate(event) {
 
 
 // Fetch transactions
-// Vulnerability: No rate limiting on transaction fetches
 async function fetchTransactions() {
     try {
         const accountNumber = document.getElementById('account-number').textContent;
@@ -397,11 +389,10 @@ async function fetchTransactions() {
         const data = await response.json();
         if (data.status === 'success') {
             if (data.transactions.length === 0) {
-                document.getElementById('transaction-list').innerHTML = '<p style="text-align: center; padding: 2rem;">No transactions found</p>';
+                document.getElementById('transaction-list').innerHTML = '<p class="empty-note">No transactions found</p>';
                 return;
             }
             
-            // Vulnerability: innerHTML used with unsanitized data
             const transactionHtml = data.transactions.map(t => {
                 const isOutgoing = t.from_account === accountNumber;
                 const transactionType = isOutgoing ? 'sent' : 'received';
@@ -424,10 +415,10 @@ async function fetchTransactions() {
             
             document.getElementById('transaction-list').innerHTML = transactionHtml;
         } else {
-            document.getElementById('transaction-list').innerHTML = '<p style="text-align: center; padding: 2rem;">Error loading transactions</p>';
+            document.getElementById('transaction-list').innerHTML = '<p class="empty-note">Error loading transactions</p>';
         }
     } catch (error) {
-        document.getElementById('transaction-list').innerHTML = '<p style="text-align: center; padding: 2rem;">Error loading transactions</p>';
+        document.getElementById('transaction-list').innerHTML = '<p class="empty-note">Error loading transactions</p>';
     }
 }
 
@@ -503,7 +494,6 @@ function renderVirtualCards() {
         return;
     }
     
-    // Vulnerability: XSS possible in card rendering
     container.innerHTML = virtualCards.map(card => `
         <div class="virtual-card ${String(card.card_type || '').toLowerCase()} ${card.is_frozen ? 'frozen' : ''}" id="card-${card.id}">
             <div class="card-topline">
@@ -745,7 +735,7 @@ async function showTransactionHistory(cardId) {
             const content = document.getElementById('cardDetailsContent');
             
             if (data.transactions.length === 0) {
-                content.innerHTML = '<p style="text-align: center; padding: 1rem;">No transactions found for this card</p>';
+                content.innerHTML = '<p class="empty-note">No transactions found for this card</p>';
                 modal.style.display = 'flex';
                 return;
             }
@@ -781,7 +771,6 @@ async function showUpdateLimit(cardId) {
     const modal = document.getElementById('cardDetailsModal');
     const content = document.getElementById('cardDetailsContent');
     
-    // Vulnerability: Exposing form that allows updating any field
     content.innerHTML = `
         <h4>Update Card Limit</h4>
         <form id="updateCardForm" onsubmit="return handleCardUpdate(event, ${cardId})">
@@ -810,7 +799,6 @@ async function handleCardUpdate(event, cardId) {
     };
 
     try {
-        // Vulnerability: Sending all form data including sensitive fields
         const response = await fetch(`/api/virtual-cards/${cardId}/update-limit`, {
             method: 'POST',
             headers: {
@@ -855,7 +843,6 @@ async function loadBillCategories() {
         
         if (data.status === 'success') {
             const select = document.getElementById('billCategory');
-            // Vulnerability: XSS possible in category name and description
             select.innerHTML = `
                 <option value="">Select Category</option>
                 ${data.categories.map(cat => `
@@ -1020,11 +1007,10 @@ async function loadPaymentHistory() {
         if (data.status === 'success') {
             const container = document.getElementById('bill-payments-list');
             if (data.payments.length === 0) {
-                container.innerHTML = '<p style="text-align: center; padding: 2rem;">No bill payments found</p>';
+                container.innerHTML = '<p class="empty-note">No bill payments found</p>';
                 return;
             }
 
-            // Vulnerability: XSS possible in payment details
             container.innerHTML = data.payments.map(payment => `
                 <div class="payment-item">
                     <div class="payment-header">
@@ -1044,14 +1030,13 @@ async function loadPaymentHistory() {
                 </div>
             `).join('');
         } else {
-            document.getElementById('bill-payments-list').innerHTML = '<p style="text-align: center; padding: 2rem;">Error loading payment history</p>';
+            document.getElementById('bill-payments-list').innerHTML = '<p class="empty-note">Error loading payment history</p>';
         }
     } catch (error) {
-        document.getElementById('bill-payments-list').innerHTML = '<p style="text-align: center; padding: 2rem;">Error loading payment history</p>';
+        document.getElementById('bill-payments-list').innerHTML = '<p class="empty-note">Error loading payment history</p>';
     }
 }
 
-// Vulnerability: No server-side token invalidation
 function logout() {
     localStorage.removeItem('jwt_token');
     window.location.href = '/login';
@@ -1143,13 +1128,13 @@ function sendChatMessage() {
         // Clear input
         input.value = '';
         
-        const helpMessage = `🤖 **Available Commands:**\n\n` +
-            `• **/help** - Show this help message\n` +
-            `• **/status** or **/rate-limit** - Check your current rate limit status\n` +
-            `• **Switch modes** - Use the radio buttons above to switch between Anonymous and Authenticated modes\n\n` +
+        const helpMessage = `**Available Commands:**\n\n` +
+            `- **/help** - Show this help message\n` +
+            `- **/status** or **/rate-limit** - Check your current rate limit status\n` +
+            `- **Switch modes** - Use the radio buttons above to switch between Anonymous and Authenticated modes\n\n` +
             `**Rate Limits:**\n` +
-            `• Anonymous: 5 requests per 3 hours\n` +
-            `• Authenticated: 10 requests per 3 hours\n\n` +
+            `- Anonymous: 5 requests per 3 hours\n` +
+            `- Authenticated: 10 requests per 3 hours\n\n` +
             `Just type your question to chat with the AI assistant!`;
         
         setTimeout(() => {
@@ -1248,11 +1233,11 @@ async function sendToAI(message) {
             const limit = rateLimitInfo.limit || 'unknown';
             const windowHours = rateLimitInfo.window_hours || 3;
             
-            let rateLimitMessage = `🚫 **Rate Limit Exceeded**\n\n`;
+            let rateLimitMessage = `**Rate Limit Exceeded**\n\n`;
             
             if (limitType === 'unauthenticated_ip') {
                 rateLimitMessage += `You've reached the limit for anonymous users: **${currentCount}/${limit} requests** in the last ${windowHours} hours.\n\n`;
-                rateLimitMessage += `💡 **Tip**: Log in to get higher limits (10 requests per 3 hours)`;
+                rateLimitMessage += `**Tip**: Log in to get higher limits (10 requests per 3 hours)`;
             } else if (limitType === 'authenticated_user') {
                 rateLimitMessage += `You've reached your user limit: **${currentCount}/${limit} requests** in the last ${windowHours} hours.\n\n`;
                 rateLimitMessage += `Please wait before sending more messages.`;
@@ -1274,9 +1259,9 @@ async function sendToAI(message) {
             // Add mode indicator to response for debugging
             let responseWithMode = aiResponse;
             if (selectedMode === 'anonymous') {
-                responseWithMode += '\n\n🔓 (Anonymous Mode - No user context)';
+                responseWithMode += '\n\n(Anonymous Mode - No user context)';
             } else {
-                responseWithMode += '\n\n🔐 (Authenticated Mode - User context included)';
+                responseWithMode += '\n\n(Authenticated Mode - User context included)';
             }
             
             // Add AI response with slight delay for realism
@@ -1289,14 +1274,14 @@ async function sendToAI(message) {
             let errorMsg = 'Sorry, I\'m experiencing technical difficulties. Please try again later.';
             
             if (response.status === 401) {
-                errorMsg = '🔐 **Authentication Error**\n\nYour session has expired. Please log in again or switch to Anonymous mode.';
+                errorMsg = '**Authentication error**\n\nYour session has expired. Please log in again or switch to Anonymous mode.';
             } else if (response.status === 400) {
-                errorMsg = '❌ **Invalid Request**\n\n' + (data.message || 'Please check your message and try again.');
+                errorMsg = '**Invalid Request**\n\n' + (data.message || 'Please check your message and try again.');
             } else if (response.status === 500) {
-                errorMsg = '🔧 **Server Error**\n\nThere\'s a temporary issue with the AI service. Please try again in a few moments.';
+                errorMsg = '**Server Error**\n\nThere\'s a temporary issue with the AI service. Please try again in a few moments.';
             } else if (data.message) {
                 // Use the specific error message from the server
-                errorMsg = '⚠️ **Error**\n\n' + data.message;
+                errorMsg = '**Error**\n\n' + data.message;
             }
             
             setTimeout(() => {
@@ -1358,7 +1343,7 @@ async function checkRateLimitStatus() {
             const unauth = data.rate_limits.unauthenticated;
             const auth = data.rate_limits.authenticated;
             
-            let statusMessage = `📊 **Current Rate Limit Status**\n\n`;
+            let statusMessage = `**Current Rate Limit Status**\n\n`;
             statusMessage += `**Anonymous Mode:**\n`;
             statusMessage += `${unauth.requests_made}/${unauth.limit} requests used (${unauth.remaining || 0} remaining)\n\n`;
             
@@ -1375,11 +1360,11 @@ async function checkRateLimitStatus() {
             
             addMessageToChat(statusMessage, false);
         } else {
-            addMessageToChat('❌ Unable to check rate limit status. Please try again later.', false);
+            addMessageToChat('Unable to check rate limit status. Please try again later.', false);
         }
     } catch (error) {
         console.error('Error checking rate limit status:', error);
-        addMessageToChat('❌ Error checking rate limit status. Please try again later.', false);
+        addMessageToChat('Error checking rate limit status. Please try again later.', false);
     }
 }
 
@@ -1395,10 +1380,10 @@ function showChatNotification() {
 function addWelcomeMessage() {
     if (chatHistory.length === 0) {
         const welcomeMsg = `Hi! I'm your AI banking assistant. How can I help you today?\n\n` +
-            `💡 **Quick Tips:**\n` +
-            `• Type **/help** for available commands\n` +
-            `• Type **/status** to check your rate limits\n` +
-            `• Switch between Anonymous (5 requests/3hrs) and Authenticated (10 requests/3hrs) modes above\n\n` +
+            `**Quick Tips:**\n` +
+            `- Type **/help** for available commands\n` +
+            `- Type **/status** to check your rate limits\n` +
+            `- Switch between Anonymous (5 requests/3hrs) and Authenticated (10 requests/3hrs) modes above\n\n` +
             `Ask me about your account, transactions, or any banking questions!`;
         
         chatHistory.push({

@@ -1,0 +1,10 @@
+.git
+design
+tests
+README.md
+.github
+__pycache__
+*.pyc
+.env
+vulns.md
+SERVER-AI-INSTRUCTIONS.md

@@ -2,87 +2,90 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Compliance - VulnBank</title>
-    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>document.documentElement.setAttribute("data-theme", localStorage.getItem("vb-theme") || "light");</script>
-    <style>
-        body { background: var(--bg); }
-        .legal-page { max-width: 720px; margin: 0 auto; padding: 3rem 2rem; }
-        .legal-page h1 { font-family: var(--font-display); font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
-        .legal-page .subtitle { color: var(--text-3); margin-bottom: 2rem; font-size: 0.9375rem; }
-        .legal-page h2 { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; margin-top: 2rem; margin-bottom: 0.75rem; }
-        .legal-page p { color: var(--text-2); line-height: 1.8; margin-bottom: 1rem; font-size: 0.9375rem; }
-        .legal-page .back-link { display: inline-flex; align-items: center; gap: 0.375rem; font-size: 0.875rem; font-weight: 600; color: var(--brand); margin-bottom: 2rem; }
-        .legal-page .back-link:hover { color: var(--brand-dark); }
-        .legal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-        .cert-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0; }
-        .cert-card {
-            background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg);
-            padding: 1.25rem; transition: background var(--dur-mid) ease, border-color var(--dur-mid) ease;
-        }
-        .cert-card h3 { font-family: var(--font-display); font-size: 0.9375rem; font-weight: 700; margin-bottom: 0.375rem; color: var(--text-1); }
-        .cert-card p { font-size: 0.8125rem; margin-bottom: 0; }
-        .cert-badge {
-            display: inline-block; padding: 0.125rem 0.5rem; border-radius: var(--r-full);
-            font-size: 0.625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
-            margin-bottom: 0.625rem;
-        }
-        .cert-badge.fail { background: var(--red-bg); color: var(--red-text); }
-        @media (max-width: 600px) { .cert-grid { grid-template-columns: 1fr; } }
-    </style>
+    <title>Compliance - ISB</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon-16.svg') }}" sizes="16x16">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='site.css') }}">
+    <script>document.documentElement.setAttribute("data-theme", localStorage.getItem("isb-theme") || "light");</script>
 </head>
 <body>
-    <div class="legal-page">
-        <div class="legal-nav">
-            <a href="{{ url_for('index') }}" class="back-link">&larr; Back to home</a>
-            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
-                <span class="toggle-icon toggle-icon-sun">☀️</span>
-                <span class="toggle-slider"></span>
-                <span class="toggle-icon toggle-icon-moon">🌙</span>
-            </button>
-        </div>
-        <h1>Compliance</h1>
-        <p class="subtitle">VulnBank is proudly compliant with absolutely nothing.</p>
-
-        <h2>Our Certifications</h2>
-        <p>We have undergone rigorous internal audits (we Googled "is my app secure" and clicked "I'm Feeling Lucky") and are pleased to report the following compliance status:</p>
-
-        <div class="cert-grid">
-            <div class="cert-card">
-                <div class="cert-badge fail">Non-Compliant</div>
-                <h3>OWASP Top 10</h3>
-                <p>We don't just fail the OWASP Top 10. We implement all 10 as features. SQL injection, XSS, SSRF, IDOR, broken authentication, security misconfiguration... we have the full collection.</p>
-            </div>
-            <div class="cert-card">
-                <div class="cert-badge fail">Non-Compliant</div>
-                <h3>PCI DSS</h3>
-                <p>Payment Card Industry standards require encrypted storage of sensitive data. We store passwords in plaintext and serve JWT tokens from localStorage. PCI DSS auditors are welcome to cry.</p>
-            </div>
-            <div class="cert-card">
-                <div class="cert-badge fail">Non-Compliant</div>
-                <h3>GDPR</h3>
-                <p>The right to be forgotten is technically achievable through our admin panel's unsecured delete endpoint. Anyone can forget you. Whether you wanted them to is another matter.</p>
-            </div>
-            <div class="cert-card">
-                <div class="cert-badge fail">Non-Compliant</div>
-                <h3>SOC 2 Type II</h3>
-                <p>Our access controls consist of a JWT that never expires, an admin panel hidden behind a guessable URL, and a profile picture upload that doubles as a server-side request forgery tool.</p>
+    <a href="#main" class="skip-link">Skip to main content</a>
+    <header class="site-header" id="navbar">
+        <div class="site-wrap">
+            <a href="{{ url_for('index') }}" class="brand" aria-label="ISB home"><svg class="brand-mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="27" height="27" rx="3"/><path d="M9 9h14M9 23h14M16 9v14"/><path d="M12.5 13.5h7" opacity=".55"/></svg><span class="brand-name">ISB</span></a>
+            <nav class="site-nav" aria-label="Main">
+                <a href="{{ url_for('index') }}#features">Services</a>
+                <a href="{{ url_for('index') }}#how-it-works">How it works</a>
+                <a href="{{ url_for('merchant_login_page') }}">Merchant Portal</a>
+                <a href="{{ url_for('blog') }}">Blog</a>
+                <a href="{{ url_for('careers') }}">Careers</a>
+            </nav>
+            <div class="site-actions">
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch colour theme"><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg></button>
+                <a href="{{ url_for('login') }}" class="btn btn-ghost">Sign in</a>
+                <a href="{{ url_for('register') }}" class="btn btn-primary">Open an account</a>
             </div>
         </div>
+    </header>
+    <main id="main" class="page-main">
+        <div class="site-wrap">
+            <div class="prose">
+                <h1>Compliance</h1>
+                <p class="subtitle">How ISB meets its regulatory and security obligations.</p>
 
-        <h2>Vulnerability Disclosure</h2>
-        <p>We operate a full-disclosure policy in the most literal sense: every vulnerability is fully disclosed in the source code via helpful HTML comments like <code>&lt;!-- Vulnerability: No CSRF protection --&gt;</code>. We believe in making penetration testers' lives easier.</p>
+                <h2>Standards and frameworks</h2>
+                <p>ISB aligns its policies and operations with the following frameworks. Reports are available to business customers on request.</p>
+                <div class="cert-list">
+                    <div class="cert-row">
+                        <div><h3>PCI DSS</h3></div>
+                        <p>Card data is handled in line with the Payment Card Industry Data Security Standard. Card numbers are masked in the interface and virtual cards can be frozen at any time.</p>
+                    </div>
+                    <div class="cert-row">
+                        <div><h3>GDPR</h3></div>
+                        <p>We process personal data lawfully and only for stated purposes. You can request access to, correction of, or deletion of your data by contacting our data protection team.</p>
+                    </div>
+                    <div class="cert-row">
+                        <div><h3>SOC 2</h3></div>
+                        <p>Our controls for security, availability and confidentiality are reviewed by independent auditors each year.</p>
+                    </div>
+                    <div class="cert-row">
+                        <div><h3>ISO 27001</h3></div>
+                        <p>Our information security management system covers how we manage risk, access, suppliers and incidents.</p>
+                    </div>
+                </div>
 
-        <h2>Incident Response</h2>
-        <p>In the event of a security breach, our incident response plan is to remind everyone that the application is called "Vulnerable Bank" and that this was the plan all along. Mean time to acknowledgment: immediate. Mean time to remediation: never.</p>
-    </div>
+                <h2>Responsible disclosure</h2>
+                <p>If you believe you have found a security issue affecting ISB, please tell us at <a href="mailto:security@isb.example"><code>security@isb.example</code></a>. Include enough detail for us to reproduce it. We acknowledge reports promptly and keep you informed while we investigate.</p>
+
+                <h2>Incident response</h2>
+                <p>We maintain a documented incident response plan with named owners, escalation paths and communication templates. If an incident affects your data, we will notify you and the relevant authorities within the timeframes required by law.</p>
+
+                <h2>Complaints</h2>
+                <p>If you are unhappy with our service, contact customer care first. If we cannot resolve your complaint, you may refer it to the relevant financial ombudsman.</p>
+            </div>
+        </div>
+    </main>
+    <footer class="site-footer footer-compact">
+        <div class="site-wrap">
+            <div class="footer-legal" style="margin-top:0;padding-top:0;border-top:0;">
+                <span>&copy; 2026 ISB. All rights reserved.</span>
+                <ul>
+                    <li><a href="{{ url_for('privacy') }}">Privacy policy</a></li>
+                    <li><a href="{{ url_for('terms') }}">Terms of service</a></li>
+                    <li><a href="{{ url_for('compliance') }}">Compliance</a></li>
+                    <li><a href="{{ url_for('careers') }}">Careers</a></li>
+                    <li><a href="{{ url_for('blog') }}">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
     <script>
         function toggleTheme() {
             const h = document.documentElement;
             const n = h.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            h.setAttribute('data-theme', n); localStorage.setItem('vb-theme', n);
+            h.setAttribute('data-theme', n); localStorage.setItem('isb-theme', n);
         }
     </script>
 </body>

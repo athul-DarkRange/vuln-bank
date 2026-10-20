@@ -1,39 +1,63 @@
+name: isb
+
+# Hardening summary (application behaviour is untouched):
+#  - The only host port is 127.0.0.1:${ISB_WEB_PORT}; a reverse proxy on the host is the public entry point.
+#  - The database sits on an internal-only network: no published port, no outbound access.
+#  - Only the web container has outbound access, on a dedicated bridge (br-isb) with a fixed subnet,
+#    so the host firewall can restrict what an exploited container may reach (see SERVER-AI-INSTRUCTIONS.md).
+#  - No privileged mode, no docker socket, no host networking, no host bind mounts except uploads.
+#  - Capabilities dropped, no-new-privileges, CPU / memory / PID limits, log rotation.
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
 services:
   web:
     build: .
     restart: unless-stopped
     ports:
-      - "${VULNBANK_WEB_PORT:-5000}:5000"
-      - "${VULNBANK_HTTP_PORT:-80}:5000"
-      # - "443:5000" 
-
+      - "127.0.0.1:${ISB_WEB_PORT:-5000}:5000"
     environment:
-      - DB_NAME=vulnerable_bank
-      - DB_USER=postgres
-      - DB_PASSWORD=postgres
-      - DB_HOST=db 
+      - DB_NAME=${DB_NAME:-isb_bank}
+      - DB_USER=${DB_USER:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-postgres}
+      - DB_HOST=db
       - DB_PORT=5432
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-}
     depends_on:
       db:
         condition: service_healthy
     volumes:
       - ./static/uploads:/app/static/uploads
     networks:
-      - vuln_network
-    labels:
-      # Opt this container in to autoheal (see the `autoheal` service below).
-      - autoheal=true
+      - isb_net
+      - isb_db
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    pids_limit: 256
+    mem_limit: 512m
+    cpus: 1.0
+    ulimits:
+      nofile:
+        soft: 4096
+        hard: 4096
+    logging: *default-logging
 
   # Keeps intentional stored-XSS payloads usable for a short testing window,
-  # then neutralizes the stored values without changing any vulnerable sink.
+  # then neutralizes the stored values without touching the app code.
   xss-cleaner:
     build: .
     restart: unless-stopped
     command: ["python", "xss_cleanup.py"]
     environment:
-      - DB_NAME=vulnerable_bank
-      - DB_USER=postgres
-      - DB_PASSWORD=postgres
+      - DB_NAME=${DB_NAME:-isb_bank}
+      - DB_USER=${DB_USER:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-postgres}
       - DB_HOST=db
       - DB_PORT=5432
       - XSS_PAYLOAD_TTL_MINUTES=${XSS_PAYLOAD_TTL_MINUTES:-15}
@@ -44,49 +68,52 @@ services:
     healthcheck:
       disable: true
     networks:
-      - vuln_network
+      - isb_db
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    mem_limit: 128m
+    logging: *default-logging
 
   db:
     image: postgres:13
     restart: unless-stopped
     environment:
-      - POSTGRES_DB=vulnerable_bank
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    ports:
-      - "5432:5432"
+      - POSTGRES_DB=${DB_NAME:-isb_bank}
+      - POSTGRES_USER=${DB_USER:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
+    # No published port: reachable only from web / xss-cleaner over the internal network.
+    expose:
+      - "5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - vuln_network
+      - isb_db
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 512m
+    logging: *default-logging
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d vulnerable_bank"]
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 10s
 
-  # Restarts containers Docker marks `unhealthy`.
-  autoheal:
-    image: willfarrell/autoheal:latest
-    restart: unless-stopped
-    environment:
-      # Only watch containers explicitly labelled `autoheal=true` (the web
-      # app), never every container on the host.
-      - AUTOHEAL_CONTAINER_LABEL=autoheal
-      # Poll container health every 10s.
-      - AUTOHEAL_INTERVAL=10
-      # Grace period before monitoring a freshly (re)started container, so a
-      # normal slow boot isn't treated as a failure.
-      - AUTOHEAL_START_PERIOD=30
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    networks:
-      - vuln_network
-
 volumes:
   postgres_data:
 
 networks:
-  vuln_network:
+  # Outbound-capable network, web only. Fixed name/subnet so host firewall rules are deterministic.
+  isb_net:
     driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: br-isb
+    ipam:
+      config:
+        - subnet: 172.29.77.0/24
+  # Database network: no route to the outside world.
+  isb_db:
+    driver: bridge
+    internal: true

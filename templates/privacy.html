@@ -2,65 +2,77 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Privacy Policy - VulnBank</title>
-    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>document.documentElement.setAttribute("data-theme", localStorage.getItem("vb-theme") || "light");</script>
-    <style>
-        body { background: var(--bg); }
-        .legal-page { max-width: 720px; margin: 0 auto; padding: 3rem 2rem; }
-        .legal-page h1 { font-family: var(--font-display); font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
-        .legal-page .subtitle { color: var(--text-3); margin-bottom: 2rem; font-size: 0.9375rem; }
-        .legal-page h2 { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; margin-top: 2rem; margin-bottom: 0.75rem; }
-        .legal-page p { color: var(--text-2); line-height: 1.8; margin-bottom: 1rem; font-size: 0.9375rem; }
-        .legal-page .back-link { display: inline-flex; align-items: center; gap: 0.375rem; font-size: 0.875rem; font-weight: 600; color: var(--brand); margin-bottom: 2rem; }
-        .legal-page .back-link:hover { color: var(--brand-dark); }
-        .legal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-    </style>
+    <title>Privacy policy - ISB</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon-16.svg') }}" sizes="16x16">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='site.css') }}">
+    <script>document.documentElement.setAttribute("data-theme", localStorage.getItem("isb-theme") || "light");</script>
 </head>
 <body>
-    <div class="legal-page">
-        <div class="legal-nav">
-            <a href="{{ url_for('index') }}" class="back-link">&larr; Back to home</a>
-            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
-                <span class="toggle-icon toggle-icon-sun">☀️</span>
-                <span class="toggle-slider"></span>
-                <span class="toggle-icon toggle-icon-moon">🌙</span>
-            </button>
+    <a href="#main" class="skip-link">Skip to main content</a>
+    <header class="site-header" id="navbar">
+        <div class="site-wrap">
+            <a href="{{ url_for('index') }}" class="brand" aria-label="ISB home"><svg class="brand-mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="2.5" width="27" height="27" rx="3"/><path d="M9 9h14M9 23h14M16 9v14"/><path d="M12.5 13.5h7" opacity=".55"/></svg><span class="brand-name">ISB</span></a>
+            <nav class="site-nav" aria-label="Main">
+                <a href="{{ url_for('index') }}#features">Services</a>
+                <a href="{{ url_for('index') }}#how-it-works">How it works</a>
+                <a href="{{ url_for('merchant_login_page') }}">Merchant Portal</a>
+                <a href="{{ url_for('blog') }}">Blog</a>
+                <a href="{{ url_for('careers') }}">Careers</a>
+            </nav>
+            <div class="site-actions">
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch colour theme"><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg></button>
+                <a href="{{ url_for('login') }}" class="btn btn-ghost">Sign in</a>
+                <a href="{{ url_for('register') }}" class="btn btn-primary">Open an account</a>
+            </div>
         </div>
-        <h1>Privacy Policy</h1>
-        <p class="subtitle">Last updated: we stopped counting. Effective: whenever you read this.</p>
-
-        <h2>1. What We Collect</h2>
-        <p>Everything. Anything you type into any box anywhere on this site becomes our data. Your username, your password, your account balance, your transaction history, and that one thing you typed by accident—we keep it all. We're like a museum of your personal information, except the museum has no security guards and the doors are always open.</p>
-
-        <h2>2. How We Protect It</h2>
-        <p>We use industry-standard practices from 1999. Your data is stored with the same level of care you'd use to protect a sandwich left on a park bench. We believe in "security through obscurity"—if we don't tell anyone how bad it is, maybe they won't notice.</p>
-
-        <h2>3. Who Can Access Your Data</h2>
-        <p>You, obviously. Also anyone else who asks nicely. Or not nicely. Or just happens to guess the right URL. Or sends a request that looks like it's from you. We're equal opportunity data sharers. Think of it as an open floor plan for your personal information.</p>
-
-        <h2>4. Data Sharing</h2>
-        <p>We don't sell your data to third parties. That would imply we value it enough to charge money. Instead, we make it freely accessible to anyone with an internet connection and basic curiosity. Some might call this "negligence." We call it "radical data transparency."</p>
-
-        <h2>5. Your Rights</h2>
-        <p>You have the right to remain vulnerable. You have the right to an account that operates on the honor system. You have the right to watch your money go on unauthorized adventures. If these rights concern you, you may have misunderstood the purpose of this entire application.</p>
-
-        <h2>6. Children's Privacy</h2>
-        <p>This service is not intended for children under 13, or adults who expect security, or really anyone who values their data in any way. But we're not checking IDs, so do what you want.</p>
-
-        <h2>7. Changes to This Policy</h2>
-        <p>We reserve the right to change this policy whenever we feel like it, without notice. We probably won't, because we don't care that much, but technically we could. Keep checking back daily for updates that will never come.</p>
-
-        <h2>8. Contact</h2>
-        <p>If you have privacy concerns, we recommend using a real bank. Alternatively, you could try to find our contact information somewhere in this codebase. Good luck.</p>
-    </div>
+    </header>
+    <main id="main" class="page-main">
+        <div class="site-wrap">
+            <div class="prose">
+                <h1>Privacy policy</h1>
+                <p class="updated">Last updated: January 1, 2026</p>
+                <p class="subtitle">This policy explains what personal data ISB collects, why we collect it and the choices you have.</p>
+                <h2>1. What we collect</h2>
+                <p>We collect the information you give us when you open and use an account, such as your name, username, contact details, transaction history and the documents you upload. We also collect technical information such as device type and log data to keep the service running.</p>
+                <h2>2. How we use it</h2>
+                <p>We use your information to provide and secure your account, process payments, meet legal obligations, answer your questions and improve our services. We do not use your information for purposes that are incompatible with these.</p>
+                <h2>3. How we protect it</h2>
+                <p>We apply technical and organisational measures to protect personal data, including access controls, monitoring and regular reviews of our systems.</p>
+                <h2>4. Who we share it with</h2>
+                <p>We share data with service providers who help us run ISB, with payment networks to complete transactions, and with authorities when the law requires it. We do not sell your personal data.</p>
+                <h2>5. Your rights</h2>
+                <p>You can ask to see the personal data we hold about you, correct it, restrict or object to its use, or request deletion where the law allows. Contact us to make a request.</p>
+                <h2>6. Children's privacy</h2>
+                <p>ISB accounts are for people aged 18 and over. We do not knowingly collect data from children.</p>
+                <h2>7. Changes to this policy</h2>
+                <p>We may update this policy from time to time. We will post the new version here and tell you about significant changes.</p>
+                <h2>8. Contact</h2>
+                <p>Questions about privacy can be sent to <a href="mailto:privacy@isb.example"><code>privacy@isb.example</code></a>.</p>
+            </div>
+        </div>
+    </main>
+    <footer class="site-footer footer-compact">
+        <div class="site-wrap">
+            <div class="footer-legal" style="margin-top:0;padding-top:0;border-top:0;">
+                <span>&copy; 2026 ISB. All rights reserved.</span>
+                <ul>
+                    <li><a href="{{ url_for('privacy') }}">Privacy policy</a></li>
+                    <li><a href="{{ url_for('terms') }}">Terms of service</a></li>
+                    <li><a href="{{ url_for('compliance') }}">Compliance</a></li>
+                    <li><a href="{{ url_for('careers') }}">Careers</a></li>
+                    <li><a href="{{ url_for('blog') }}">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
     <script>
         function toggleTheme() {
             const h = document.documentElement;
             const n = h.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            h.setAttribute('data-theme', n); localStorage.setItem('vb-theme', n);
+            h.setAttribute('data-theme', n); localStorage.setItem('isb-theme', n);
         }
     </script>
 </body>

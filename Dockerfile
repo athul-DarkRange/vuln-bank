@@ -19,7 +19,8 @@ COPY . .
 
 # Ensure uploads directory exists and has proper permissions
 RUN chmod 777 static/uploads
-RUN chmod +x /app/start.sh
+# Strip Windows CRLF line endings so the script runs regardless of checkout settings
+RUN tr -d '\r' < /app/start.sh > /app/start.tmp && mv /app/start.tmp /app/start.sh && chmod +x /app/start.sh
 
 EXPOSE 5000
 

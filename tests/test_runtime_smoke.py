@@ -142,7 +142,7 @@ class StartScriptTests(unittest.TestCase):
                     "DB_HOST": "db",
                     "DB_PORT": "5432",
                     "DB_USER": "postgres",
-                    "DB_NAME": "vulnerable_bank",
+                    "DB_NAME": "isb_bank",
                 }
             )
 

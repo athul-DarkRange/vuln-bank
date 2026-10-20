@@ -62,7 +62,7 @@ swaggerui_blueprint = get_swaggerui_blueprint(
     SWAGGER_URL,
     API_URL,
     config={
-        'app_name': "Vulnerable Bank API Documentation",
+        'app_name': "InSecure Bank API Documentation",
         'validatorUrl': None
     }
 )
@@ -848,7 +848,7 @@ def internal_config():
 
     cfg = {
         'app': {
-            'name': 'Vulnerable Bank',
+            'name': 'InSecure Bank',
             'debug': True,
             'swagger_url': SWAGGER_URL,
         },
@@ -888,7 +888,7 @@ def metadata_ami():
 def metadata_hostname():
     if not _is_loopback_request():
         return make_response('Forbidden', 403)
-    return make_response('vulnbank.internal\n', 200)
+    return make_response('isb.internal\n', 200)
 
 @app.route('/latest/meta-data/instance-id', methods=['GET'])
 def metadata_instance():
@@ -924,9 +924,9 @@ def metadata_iam_root():
 def metadata_iam_list():
     if not _is_loopback_request():
         return make_response('Forbidden', 403)
-    return make_response('vulnbank-role\n', 200)
+    return make_response('isb-role\n', 200)
 
-@app.route('/latest/meta-data/iam/security-credentials/vulnbank-role', methods=['GET'])
+@app.route('/latest/meta-data/iam/security-credentials/isb-role', methods=['GET'])
 def metadata_iam_role():
     if not _is_loopback_request():
         return jsonify({'error': 'Forbidden'}), 403
@@ -938,7 +938,7 @@ def metadata_iam_role():
         'SecretAccessKey': 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYDEMODEMO',
         'Token': 'IQoJb3JpZ2luX2VjEJ//////////wEaCXVzLXdlc3QtMiJIMEYCIQCdemo',
         'Expiration': (datetime.now() + timedelta(hours=1)).isoformat(),
-        'RoleArn': 'arn:aws:iam::123456789012:role/vulnbank-role'
+        'RoleArn': 'arn:aws:iam::123456789012:role/isb-role'
     }
     return jsonify(creds)
 
@@ -2330,7 +2330,7 @@ def get_payment_history(current_user):
 @token_required
 def ai_chat_authenticated(current_user):
     """
-    Vulnerable AI Customer Support Chat (AUTHENTICATED MODE)
+    AI Customer Support Chat (AUTHENTICATED MODE)
     
     VULNERABILITIES:
     - Prompt Injection (CWE-77)

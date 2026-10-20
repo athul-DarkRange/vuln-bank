@@ -1,4 +1,4 @@
-const baseUrl = process.env.VULNBANK_TEST_URL || 'http://127.0.0.1:15000';
+const baseUrl = process.env.ISB_TEST_URL || 'http://127.0.0.1:15000';
 const chromeDebugUrl = process.env.CHROME_DEBUG_URL || 'http://127.0.0.1:19223';
 const expiryWaitMs = Number(process.env.XSS_E2E_WAIT_MS || 70000);
 

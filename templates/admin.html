@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Panel - VulnBank</title>
+    <title>Admin - ISB</title>
     <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
     <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon-16.svg') }}" sizes="16x16">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>document.documentElement.setAttribute("data-theme", localStorage.getItem("vb-theme") || "light");</script>
+    <script>document.documentElement.setAttribute("data-theme", localStorage.getItem("isb-theme") || "light");</script>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -18,26 +18,28 @@
         <aside class="admin-sidebar">
             <div class="sidebar-header">
                 <div class="sidebar-logo">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                    <svg class="logo-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M4 8.5 12 4l8 4.5"></path>
+                        <path d="M7 11v6M12 11v6M17 11v6"></path>
+                        <path d="M4 20h16"></path>
                     </svg>
-                    <span class="sidebar-logo-text">VulnBank</span>
+                    <span class="sidebar-logo-text">ISB</span>
                     <span class="sidebar-badge">Admin</span>
                 </div>
             </div>
 
-            <nav class="sidebar-nav">
+            <nav class="sidebar-nav" aria-label="Admin sections">
                 <a href="#overview" class="sidebar-nav-item active" data-section="overview">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="3" width="7" height="7"></rect>
-                        <rect x="14" y="3" width="7" height="7"></rect>
-                        <rect x="14" y="14" width="7" height="7"></rect>
-                        <rect x="3" y="14" width="7" height="7"></rect>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                        <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                        <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                        <rect x="3" y="14" width="7" height="7" rx="1"></rect>
                     </svg>
                     <span>Overview</span>
                 </a>
                 <a href="#users" class="sidebar-nav-item" data-section="users">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                         <circle cx="9" cy="7" r="4"></circle>
                         <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
@@ -46,16 +48,20 @@
                     <span>Users</span>
                 </a>
                 <a href="#loans" class="sidebar-nav-item" data-section="loans">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
                         <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
                     </svg>
                     <span>Loans</span>
                 </a>
                 <a href="#settings" class="sidebar-nav-item" data-section="settings">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="3"></circle>
-                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0-9 19.4a1.65 1.65 0 0 0-1 1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0 .33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <line x1="4" y1="6" x2="20" y2="6"></line>
+                        <line x1="4" y1="12" x2="20" y2="12"></line>
+                        <line x1="4" y1="18" x2="20" y2="18"></line>
+                        <circle cx="9" cy="6" r="2" fill="var(--rail-bg)"></circle>
+                        <circle cx="15" cy="12" r="2" fill="var(--rail-bg)"></circle>
+                        <circle cx="8" cy="18" r="2" fill="var(--rail-bg)"></circle>
                     </svg>
                     <span>Settings</span>
                 </a>
@@ -63,15 +69,15 @@
 
             <div class="sidebar-footer">
                 <a href="{{ url_for('dashboard') }}" class="sidebar-back-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <line x1="19" y1="12" x2="5" y2="12"></line>
                         <polyline points="12 19 5 12 12 5"></polyline>
                     </svg>
-                    <span>Back to Dashboard</span>
+                    <span>Back to dashboard</span>
                 </a>
-                <button class="theme-toggle-sidebar" onclick="toggleTheme()" aria-label="Toggle dark mode">
-                    <span class="toggle-icon toggle-icon-sun">☀️</span>
-                    <span class="toggle-icon toggle-icon-moon">🌙</span>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch colour theme">
+                    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+                    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
                 </button>
             </div>
         </aside>
@@ -93,89 +99,44 @@
             <!-- Overview Section -->
             <section class="admin-section" id="overview-section">
                 <div class="section-header">
-                    <h2>Transaction Analytics</h2>
-                    <p class="section-subtitle">Live metrics and recent activity</p>
+                    <h2>Transaction analytics</h2>
+                    <p class="section-subtitle">Live figures from the most recent transfers.</p>
                 </div>
 
-                <div class="metrics-grid">
-                    <div class="metric-card metric-primary">
-                        <div class="metric-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                            </svg>
-                        </div>
-                        <div class="metric-content">
-                            <span class="metric-label">Total Transactions</span>
-                            <strong class="metric-value" id="graphql-total-transactions">--</strong>
-                        </div>
+                <dl class="stat-strip">
+                    <div class="stat">
+                        <dt class="metric-label">Total transactions</dt>
+                        <dd class="metric-value" id="graphql-total-transactions">--</dd>
                     </div>
-                    <div class="metric-card metric-success">
-                        <div class="metric-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="12" y1="1" x2="12" y2="23"></line>
-                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                            </svg>
-                        </div>
-                        <div class="metric-content">
-                            <span class="metric-label">Total Volume</span>
-                            <strong class="metric-value" id="graphql-total-volume">--</strong>
-                        </div>
+                    <div class="stat">
+                        <dt class="metric-label">Total volume</dt>
+                        <dd class="metric-value" id="graphql-total-volume">--</dd>
                     </div>
-                    <div class="metric-card metric-info">
-                        <div class="metric-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 19V5M5 12l7-7 7 7"></path>
-                            </svg>
-                        </div>
-                        <div class="metric-content">
-                            <span class="metric-label">Inflow</span>
-                            <strong class="metric-value" id="graphql-inflow">--</strong>
-                        </div>
+                    <div class="stat">
+                        <dt class="metric-label">Inflow</dt>
+                        <dd class="metric-value" id="graphql-inflow">--</dd>
                     </div>
-                    <div class="metric-card metric-warning">
-                        <div class="metric-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 19V5M5 12l7-7 7 7"></path>
-                                <path d="M19 12l-7 7-7-7"></path>
-                            </svg>
-                        </div>
-                        <div class="metric-content">
-                            <span class="metric-label">Outflow</span>
-                            <strong class="metric-value" id="graphql-outflow">--</strong>
-                        </div>
+                    <div class="stat">
+                        <dt class="metric-label">Outflow</dt>
+                        <dd class="metric-value" id="graphql-outflow">--</dd>
                     </div>
-                    <div class="metric-card metric-purple">
-                        <div class="metric-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                            </svg>
-                        </div>
-                        <div class="metric-content">
-                            <span class="metric-label">Net Flow</span>
-                            <strong class="metric-value" id="graphql-net-flow">--</strong>
-                        </div>
+                    <div class="stat">
+                        <dt class="metric-label">Net flow</dt>
+                        <dd class="metric-value" id="graphql-net-flow">--</dd>
                     </div>
-                    <div class="metric-card metric-danger">
-                        <div class="metric-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
-                            </svg>
-                        </div>
-                        <div class="metric-content">
-                            <span class="metric-label">Largest Transaction</span>
-                            <strong class="metric-value" id="graphql-largest-transaction">--</strong>
-                        </div>
+                    <div class="stat">
+                        <dt class="metric-label">Largest transaction</dt>
+                        <dd class="metric-value" id="graphql-largest-transaction">--</dd>
                     </div>
-                </div>
+                </dl>
 
                 <div class="analytics-grid">
                     <div class="analytics-card">
-                        <h3>Type Breakdown</h3>
+                        <h3>Type breakdown</h3>
                         <div id="graphql-breakdown" class="analytics-list graphql-loading">Loading...</div>
                     </div>
                     <div class="analytics-card">
-                        <h3>Recent Activity</h3>
+                        <h3>Recent activity</h3>
                         <div id="graphql-recent-transactions" class="analytics-list graphql-loading">Loading...</div>
                     </div>
                 </div>
@@ -184,18 +145,19 @@
             <!-- Users Section -->
             <section class="admin-section" id="users-section">
                 <div class="section-header">
-                    <h2>User Management</h2>
-                    <p class="section-subtitle">View and manage user accounts</p>
+                    <h2>User management</h2>
+                    <p class="section-subtitle">View and manage customer accounts.</p>
                 </div>
 
                 <div class="content-card">
                     <div class="card-header">
                         <div class="search-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon">
+                            <label for="admin-search" class="sr-only">Search users</label>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="search-icon" aria-hidden="true">
                                 <circle cx="11" cy="11" r="8"></circle>
                                 <path d="m21 21-4.35-4.35"></path>
                             </svg>
-                            <input type="text" id="admin-search" placeholder="Search users..." oninput="handleAdminSearch(this.value)">
+                            <input type="text" id="admin-search" placeholder="Search users" oninput="handleAdminSearch(this.value)">
                         </div>
                     </div>
                     <div id="admin-search-info" class="search-info" style="display: none;"></div>
@@ -206,7 +168,7 @@
                                 <tr>
                                     <th>User</th>
                                     <th>Account</th>
-                                    <th>Balance</th>
+                                    <th class="num">Balance</th>
                                     <th>Role</th>
                                     <th>Actions</th>
                                 </tr>
@@ -217,11 +179,11 @@
                                     <td>
                                         <div class="user-cell">
                                             <span class="user-username">{{ user[1]|safe }}</span>
-                                            <span class="user-id">ID: {{ user[0] }}</span>
+                                            <span class="user-id mono">ID {{ user[0] }}</span>
                                         </div>
                                     </td>
                                     <td class="mono">{{ user[3] }}</td>
-                                    <td class="mono balance-cell">${{ user[4] }}</td>
+                                    <td class="mono balance-cell num">${{ user[4] }}</td>
                                     <td>
                                         {% if user[5] %}
                                         <span class="role-badge role-admin">Admin</span>
@@ -258,16 +220,16 @@
                         </div>
                         <div class="page-controls">
                             {% if page > 1 %}
-                            <a class="page-btn" href="{{ url_for('admin_panel', page=page-1, loan_page=loan_page) }}">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <a class="page-btn" href="{{ url_for('admin_panel', page=page-1, loan_page=loan_page) }}" aria-label="Previous page">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                     <polyline points="15 18 9 12 15 6"></polyline>
                                 </svg>
                             </a>
                             {% endif %}
                             <span class="page-number">Page {{ page }} of {{ total_pages }}</span>
                             {% if page < total_pages %}
-                            <a class="page-btn" href="{{ url_for('admin_panel', page=page+1, loan_page=loan_page) }}">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <a class="page-btn" href="{{ url_for('admin_panel', page=page+1, loan_page=loan_page) }}" aria-label="Next page">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                     <polyline points="9 18 15 12 9 6"></polyline>
                                 </svg>
                             </a>
@@ -280,8 +242,8 @@
             <!-- Loans Section -->
             <section class="admin-section" id="loans-section">
                 <div class="section-header">
-                    <h2>Pending Loans</h2>
-                    <p class="section-subtitle">Review and approve loan applications</p>
+                    <h2>Pending loans</h2>
+                    <p class="section-subtitle">Review and approve loan applications.</p>
                 </div>
 
                 <div class="content-card">
@@ -291,7 +253,7 @@
                                 <tr>
                                     <th>Loan ID</th>
                                     <th>User ID</th>
-                                    <th>Amount</th>
+                                    <th class="num">Amount</th>
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
@@ -299,14 +261,14 @@
                             <tbody>
                                 {% for loan in pending_loans %}
                                 <tr>
-                                    <td>#{{ loan[0] }}</td>
-                                    <td>{{ loan[1] }}</td>
-                                    <td class="mono balance-cell">${{ loan[2] }}</td>
+                                    <td class="mono">#{{ loan[0] }}</td>
+                                    <td class="mono">{{ loan[1] }}</td>
+                                    <td class="mono balance-cell num">${{ loan[2] }}</td>
                                     <td><span class="status-badge status-pending">{{ loan[3] }}</span></td>
                                     <td>
                                         <form class="approve-loan-form" data-loan-id="{{ loan[0] }}">
                                             <button type="submit" class="btn-approve">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                                     <polyline points="20 6 9 17 4 12"></polyline>
                                                 </svg>
                                                 Approve
@@ -331,16 +293,16 @@
                         </div>
                         <div class="page-controls">
                             {% if loan_page > 1 %}
-                            <a class="page-btn" href="{{ url_for('admin_panel', page=page, loan_page=loan_page-1) }}">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <a class="page-btn" href="{{ url_for('admin_panel', page=page, loan_page=loan_page-1) }}" aria-label="Previous page">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                     <polyline points="15 18 9 12 15 6"></polyline>
                                 </svg>
                             </a>
                             {% endif %}
                             <span class="page-number">Page {{ loan_page }} of {{ loan_total_pages }}</span>
                             {% if loan_page < loan_total_pages %}
-                            <a class="page-btn" href="{{ url_for('admin_panel', page=page, loan_page=loan_page+1) }}">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <a class="page-btn" href="{{ url_for('admin_panel', page=page, loan_page=loan_page+1) }}" aria-label="Next page">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                     <polyline points="9 18 15 12 9 6"></polyline>
                                 </svg>
                             </a>
@@ -353,8 +315,8 @@
             <!-- Settings Section -->
             <section class="admin-section" id="settings-section">
                 <div class="section-header">
-                    <h2>Create Admin Account</h2>
-                    <p class="section-subtitle">Add new administrator</p>
+                    <h2>Create admin account</h2>
+                    <p class="section-subtitle">Add a new administrator.</p>
                 </div>
 
                 <div class="content-card">
@@ -368,11 +330,11 @@
                             <input type="password" id="admin_password" name="password" placeholder="Enter admin password" required>
                         </div>
                         <button type="submit" class="btn-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                 <circle cx="12" cy="7" r="4"></circle>
                             </svg>
-                            Create Admin
+                            Create admin
                         </button>
                     </form>
                 </div>
@@ -385,7 +347,7 @@
         <div class="user-modal-backdrop" onclick="closeUserModal()"></div>
         <div class="user-modal-content">
             <div class="user-modal-header">
-                <h2>User Profile</h2>
+                <h2>User profile</h2>
                 <button class="user-modal-close" onclick="closeUserModal()" aria-label="Close modal">&times;</button>
             </div>
             <div id="user-modal-message" class="user-modal-message" style="display: none;"></div>
@@ -396,7 +358,6 @@
     </div>
 
     <script>
-        // Vulnerability: Token stored in localStorage
         document.addEventListener('DOMContentLoaded', function() {
             const token = localStorage.getItem('jwt_token');
             if (!token) {
@@ -674,7 +635,7 @@
                     <div class="analytics-item">
                         <div class="analytics-item-main">
                             <strong>${escapeHtml(item.transactionType || 'transfer')}</strong>
-                            <span class="analytics-item-sub">${formatAccountIdentity(item.fromUsername, item.fromAccount)} → ${formatAccountIdentity(item.toUsername, item.toAccount)}</span>
+                            <span class="analytics-item-sub">${formatAccountIdentity(item.fromUsername, item.fromAccount)} to ${formatAccountIdentity(item.toUsername, item.toAccount)}</span>
                             <span class="analytics-item-sub">${escapeHtml(item.timestamp)}</span>
                         </div>
                         <span class="analytics-item-value">${formatCurrency(item.amount)}</span>
@@ -733,15 +694,14 @@
             return `${escapeHtml(username)} (${safeAccount})`;
         }
 
-        // Admin user search with XSS vulnerability
+        // Admin user search
         function handleAdminSearch(query) {
             const searchInfo = document.getElementById('admin-search-info');
             const rows = document.querySelectorAll('tbody tr');
 
-            // XSS vulnerability: Reflect user input directly
             if (query && query.trim() !== '') {
                 searchInfo.style.display = 'block';
-                searchInfo.innerHTML = 'Searching for: <strong>' + query + '</strong> (XSS vulnerable)';
+                searchInfo.innerHTML = 'Searching for: <strong>' + query + '</strong>';
             } else {
                 searchInfo.style.display = 'none';
             }
@@ -841,7 +801,7 @@
         function toggleTheme() {
             const h = document.documentElement;
             const n = h.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            h.setAttribute('data-theme', n); localStorage.setItem('vb-theme', n);
+            h.setAttribute('data-theme', n); localStorage.setItem('isb-theme', n);
         }
     </script>
 </body>

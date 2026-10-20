@@ -1,10 +1,20 @@
-# Vulnerable Bank Application 🏦
+# InSecure Bank (ISB) 🏦
+
+> **Fork Notice**: This repository is a UI-improved and redesigned fork of [Commando-X/vuln-bank](https://github.com/Commando-X/vuln-bank). The user interface has been completely revamped and refreshed (under the InSecure Bank / ISB branding) with modern styling, improved responsive layouts, and cleaner navigation, while keeping **all** original intentional vulnerabilities, backend logic, and security training exercises 100% intact.
 
 A deliberately vulnerable web application for practicing application security testing of Web, APIs and LLMs, secure code review and implementing security in CI/CD pipelines.
 
 ⚠️ **WARNING: This application is intentionally vulnerable and should only be used for educational purposes in isolated environments.**
 
 ![image](https://github.com/user-attachments/assets/7fda0106-b083-48d6-8629-f7ee3c8eb73d)
+
+## 🎨 About This Fork
+
+This fork modernizes the look and feel of **vuln-bank**:
+- **Modern UI Redesign**: Comprehensive styling overhaul across all templates (Dashboard, Auth, Admin, Merchant portal, Blog, Careers, and Landing pages).
+- **Preserved Vulnerabilities**: All intentional flaws (SQL Injection, XSS, CSRF, BOLA/BOPLA, AI Prompt Injection, SSRF, GraphQL issues, etc.) are untouched and function exactly as in the upstream repository for labs and training.
+- **Improved UX & Assets**: Clean typography, streamlined dark/modern design components, and responsive layouts.
+- **Upstream Project**: Original project created by [Commando-X](https://github.com/Commando-X/vuln-bank).
 
 ## Overview
 

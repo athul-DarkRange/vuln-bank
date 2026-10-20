@@ -1,17 +1,17 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Vulnerable Bank API",
-    "description": "API documentation for the deliberately vulnerable banking application",
+    "title": "ISB API",
+    "description": "API documentation for the ISB banking platform",
     "version": "1.0.0",
     "contact": {
-      "name": "Vulnerable Bank Support",
-      "url": "https://github.com/Commando-X/vuln-bank"
+      "name": "ISB Support",
+      "url": "https://isb.org"
     }
   },
   "servers": [
     {
-      "url": "https://vulnbank.org",
+      "url": "https://isb.org",
       "description": "Controlled Production Server"
     }
   ],
@@ -50,7 +50,7 @@
     },
     {
       "name": "ai-agent",
-      "description": "AI Customer Support Agent (Intentionally Vulnerable)"
+      "description": "AI Customer Support Agent"
     },
     {
       "name": "internal",
@@ -62,7 +62,7 @@
       "post": {
         "tags": ["authentication"],
         "summary": "Register a new user",
-        "description": "Create a new user account. Vulnerable to BOPLA.",
+        "description": "Create a new user account.",
         "requestBody": {
           "required": true,
           "content": {
@@ -100,7 +100,7 @@
                     },
                     "debug_data": {
                       "type": "object",
-                      "description": "Sensitive data exposed (vulnerability)"
+                      "description": "Additional account data"
                     }
                   }
                 }
@@ -114,7 +114,7 @@
       "post": {
         "tags": ["authentication"],
         "summary": "Log in to the application",
-        "description": "Authenticate user and receive JWT token. Vulnerable to SQL injection.",
+        "description": "Authenticate user and receive JWT token.",
         "requestBody": {
           "required": true,
           "content": {
@@ -293,7 +293,7 @@
       "get": {
         "tags": ["transactions"],
         "summary": "Get transaction history",
-        "description": "View transaction history for any account. Vulnerable to BOLA.",
+        "description": "View transaction history for any account.",
         "parameters": [
           {
             "name": "account_number",
@@ -347,7 +347,7 @@
       "post": {
         "tags": ["transactions"],
         "summary": "Transfer money",
-        "description": "Transfer money between accounts. Vulnerable to race conditions.",
+        "description": "Transfer money between accounts.",
         "security": [
           {
             "BearerAuth": []
@@ -386,7 +386,7 @@
       "post": {
         "tags": ["users"],
         "summary": "Upload profile picture",
-        "description": "Upload user profile picture. Multiple file upload vulnerabilities.",
+        "description": "Upload user profile picture.",
         "security": [
           {
             "BearerAuth": []
@@ -417,8 +417,8 @@
     "/upload_profile_picture_url": {
       "post": {
         "tags": ["users"],
-        "summary": "Upload profile picture by URL (Intentionally Vulnerable)",
-        "description": "Fetches an image from a user-provided URL and saves it as the profile picture. Vulnerable to SSRF and unsafe download behaviors (no allowlist, follows redirects, SSL verify disabled, no content-type/size validation).",
+        "summary": "Upload profile picture by URL",
+        "description": "Fetches an image from a user-provided URL and saves it as the profile picture.",
         "security": [
           {
             "BearerAuth": []
@@ -494,7 +494,7 @@
         }
       }
     },
-    "/latest/meta-data/iam/security-credentials/vulnbank-role": {
+    "/latest/meta-data/iam/security-credentials/isb-role": {
       "get": {
         "tags": ["internal"],
         "summary": "Metadata IAM role credentials (mock)",
@@ -596,7 +596,7 @@
       "get": {
         "tags": ["transactions"],
         "summary": "Check account balance",
-        "description": "Check balance of any account. Vulnerable to BOLA.",
+        "description": "Check balance of any account.",
         "parameters": [
           {
             "name": "account_number",
@@ -636,7 +636,7 @@
       "get": {
         "tags": ["transactions"],
         "summary": "Get transactions API",
-        "description": "Get transactions for a specific account. Vulnerable to SQL injection.",
+        "description": "Get transactions for a specific account.",
         "security": [
           {
             "BearerAuth": []
@@ -747,7 +747,7 @@
       "post": {
         "tags": ["virtual-cards"],
         "summary": "Create a new virtual card",
-        "description": "Create a new virtual card with specified limit and type. Vulnerable to multiple security issues.",
+        "description": "Create a new virtual card with specified limit and type.",
         "security": [
           {
             "BearerAuth": []
@@ -804,7 +804,7 @@
       "get": {
         "tags": ["virtual-cards"],
         "summary": "Get user's virtual cards",
-        "description": "Retrieve all virtual cards for the authenticated user. Vulnerable to information disclosure.",
+        "description": "Retrieve all virtual cards for the authenticated user.",
         "security": [
           {
             "BearerAuth": []
@@ -853,7 +853,7 @@
       "post": {
         "tags": ["virtual-cards"],
         "summary": "Toggle card freeze status",
-        "description": "Toggle freeze/unfreeze status of a virtual card. Vulnerable to BOLA.",
+        "description": "Toggle freeze/unfreeze status of a virtual card.",
         "security": [
           {
             "BearerAuth": []
@@ -880,7 +880,7 @@
       "get": {
         "tags": ["virtual-cards"],
         "summary": "Get card transactions",
-        "description": "Retrieve transaction history for a virtual card. Vulnerable to BOLA and SQL injection.",
+        "description": "Retrieve transaction history for a virtual card.",
         "security": [
           {
             "BearerAuth": []
@@ -907,7 +907,7 @@
       "post": {
         "tags": ["virtual-cards"],
         "summary": "Update card limit",
-        "description": "Update the spending limit of a virtual card. Vulnerable to BOLA.",
+        "description": "Update the spending limit of a virtual card.",
         "security": [
           {
             "BearerAuth": []
@@ -990,7 +990,7 @@
       "get": {
         "tags": ["bill-payments"],
         "summary": "Get billers by category",
-        "description": "Retrieve billers for a specific category. Vulnerable to SQL injection.",
+        "description": "Retrieve billers for a specific category.",
         "parameters": [
           {
             "name": "category_id",
@@ -1051,7 +1051,7 @@
       "post": {
         "tags": ["bill-payments"],
         "summary": "Create bill payment",
-        "description": "Process a new bill payment. Multiple vulnerabilities present.",
+        "description": "Process a new bill payment.",
         "security": [
           {
             "BearerAuth": []
@@ -1144,7 +1144,7 @@
       "get": {
         "tags": ["bill-payments"],
         "summary": "Get payment history",
-        "description": "Retrieve user's bill payment history. Vulnerable to SQL injection and information disclosure.",
+        "description": "Retrieve user's bill payment history.",
         "security": [
           {
             "BearerAuth": []
@@ -1215,7 +1215,7 @@
       "post": {
         "tags": ["ai-agent"],
         "summary": "AI Customer Support Chat (Authenticated)",
-        "description": "Chat with the AI customer support agent using authenticated mode. **VULNERABLE:** Includes user context, prompt injection, information disclosure, database access. User data sent to external API.",
+        "description": "Chat with the AI customer support agent using authenticated mode.  Includes user context, prompt injection, information disclosure, database access. User data sent to external API.",
         "security": [
           {
             "BearerAuth": []
@@ -1231,7 +1231,7 @@
                   "message": {
                     "type": "string",
                     "example": "What is my account balance?",
-                    "description": "Message to send to the AI agent. Vulnerable to prompt injection attacks."
+                    "description": "Message to send to the AI agent."
                   }
                 },
                 "required": ["message"]
@@ -1278,7 +1278,7 @@
                     "user_context_included": {
                       "type": "boolean",
                       "example": true,
-                      "description": "VULNERABILITY: Confirms user data was sent to AI"
+                      "description": "Confirms user data was sent to AI"
                     }
                   }
                 }
@@ -1301,11 +1301,11 @@
                     },
                     "message": {
                       "type": "string",
-                      "description": "VULNERABILITY: Detailed error messages"
+                      "description": "Detailed error messages"
                     },
                     "system_info": {
                       "type": "object",
-                      "description": "VULNERABILITY: Internal system information exposed"
+                      "description": "Internal system information exposed"
                     }
                   }
                 }
@@ -1319,7 +1319,7 @@
       "post": {
         "tags": ["ai-agent"],
         "summary": "AI Customer Support Chat (Anonymous)",
-        "description": "Chat with the AI customer support agent without authentication. **VULNERABLE:** No authentication required, prompt injection, database access, system information exposure.",
+        "description": "Chat with the AI customer support agent without authentication.  No authentication required, prompt injection, database access, system information exposure.",
         "requestBody": {
           "required": true,
           "content": {
@@ -1392,7 +1392,7 @@
       "get": {
         "tags": ["ai-agent"],
         "summary": "AI System Information",
-        "description": "**VULNERABILITY:** Exposes AI system information without authentication. Reveals system prompt, API details, and vulnerability information.",
+        "description": "Returns AI assistant configuration information.",
         "responses": {
           "200": {
             "description": "AI system information exposed",
@@ -1418,7 +1418,7 @@
                         },
                         "system_prompt": {
                           "type": "string",
-                          "description": "VULNERABILITY: Exposed system prompt"
+                          "description": "System prompt"
                         },
                         "vulnerabilities": {
                           "type": "array",
@@ -1546,8 +1546,8 @@
     "/api/v1/payments/charge": {
       "post": {
         "tags": ["merchant-payments"],
-        "summary": "Charge a Vulnbank virtual card",
-        "description": "Process a merchant payment using Vulnbank virtual card details.",
+        "summary": "Charge a ISB virtual card",
+        "description": "Process a merchant payment using ISB virtual card details.",
         "security": [
           { "MerchantApiKey": [] },
           { "BearerAuth": [] }
@@ -1664,7 +1664,7 @@
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT",
-        "description": "Vulnerable JWT implementation"
+        "description": ""
       },
       "MerchantApiKey": {
         "type": "apiKey",

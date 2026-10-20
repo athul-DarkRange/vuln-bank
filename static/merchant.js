@@ -377,7 +377,7 @@ function toggleMerchantTheme() {
     const html = document.documentElement;
     const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     html.setAttribute('data-theme', next);
-    localStorage.setItem('vb-theme', next);
+    localStorage.setItem('isb-theme', next);
 }
 
 function copyMerchantCredential(elementId) {

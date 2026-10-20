@@ -8,7 +8,7 @@ import time
 # CWE-259: Use of Hard-coded Password
 # CWE-798: Use of Hard-coded Credentials
 DB_CONFIG = {
-    'dbname': os.getenv('DB_NAME', 'vulnerable_bank'),
+    'dbname': os.getenv('DB_NAME', 'isb_bank'),
     'user': os.getenv('DB_USER', 'postgres'),
     'password': os.getenv('DB_PASSWORD', 'postgres'),  # Hardcoded password in default value
     'host': os.getenv('DB_HOST', 'localhost'),
@@ -212,8 +212,8 @@ def init_db():
             ''')
 
             seeded_merchants = [
-                ('graphQL bookstore', 'bookstore@vulnbank.org', 'bookstore123', 'vk_fe675fe7aaee830b6fed09b64e034f84dcbdaeb429d9cccd4ebb90e15af8dd71', True),
-                ('PwnShop', 'pwnshop@vulnbank.org', 'pwnshop123', 'vk_b281bc2c616cb3c3a097215fdc9397ae87e6e06b156cc34e656be7a1a9ce8839', True)
+                ('graphQL bookstore', 'bookstore@isb.org', 'bookstore123', 'vk_fe675fe7aaee830b6fed09b64e034f84dcbdaeb429d9cccd4ebb90e15af8dd71', True),
+                ('PwnShop', 'pwnshop@isb.org', 'pwnshop123', 'vk_b281bc2c616cb3c3a097215fdc9397ae87e6e06b156cc34e656be7a1a9ce8839', True)
             ]
             for merchant in seeded_merchants:
                 cursor.execute("SELECT id FROM merchants WHERE email = %s", (merchant[1],))
@@ -323,7 +323,7 @@ def init_db():
                 ON CONFLICT DO NOTHING
             """)
 
-            # Stored XSS is intentional in VulnBank. These internal timestamps do
+            # Stored values are intentionally unsanitised. These internal timestamps do
             # not sanitize or block payloads; they only let the cleanup worker
             # neutralize HTML-like values after the configured testing window.
             cursor.execute("ALTER TABLE users ADD COLUMN IF NOT EXISTS username_xss_detected_at TIMESTAMPTZ")
